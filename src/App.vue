@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <container>
-        <input type="number" v-model="commons" />
-        <input type="number" v-model="uncommons" />
-        <input type="number" v-model="rares" />
-        <input type="number" v-model="mythics" />
-        <input type="checkbox" v-model="includeRandomMythics" />
+        <label for="commons"> commons </label>
+        <input name="commons" type="number" v-model="commons" />
+        <label for="uncommons"> uncommons </label>
+        <input name="uncommons" type="number" v-model="uncommons" />
+        <label for="rares"> rares </label>
+        <input name="rares" type="number" v-model="rares" />
+        <label for="mythics"> mythics </label>
+        <input name="mythics" type="number" v-model="mythics" />
         <button @click="calculate()"> calculate </button>
-        <h3> Total Cost (USD): 
+        <h2> Total Cost (USD): 
           {{cost}}
-        </h3>
-        <h2> if you were to buy the following gem bundles: </h2>
+        </h2>
+        <h3> if you were to buy the following gem bundles: </h3>
         <ul>
           <li v-if="gemBundles.tiny > 0"> {{gemBundles.tiny}} $5 Gem Bundle(s) (150 gems per $1) </li>
           <li v-if="gemBundles.small > 0"> {{gemBundles.small}} $10 Gem Bundle(s) (160 gems per $1) </li>
@@ -18,9 +21,9 @@
           <li v-if="gemBundles.big > 0"> {{gemBundles.big}} $50 Gem Bundle(s) (184 gems per $1) </li>
           <li v-if="gemBundles.huge > 0"> {{gemBundles.huge}} $100 Gem Bundle(s) (200 gems per $1) </li>
         </ul>
-        <h2> Price in gems:
+        <h3> Price in gems:
           {{gems}}
-        </h2>
+        </h3>
     </container>
   </div>
 </template>
@@ -49,10 +52,11 @@ export default {
   methods: {
     calculate() {
       //TODO: assign each rarity a "pull chance" to simplify this
-      const commons = includeRandomMythics? this.common*3 : this.commons*5;
-      const uncommons = this.uncommons*5;
-      const rares = this.rares*15;
-      const mythics = this.includeRandomMythics? this.mythics*24 : this.mythics*30;
+      const commons = (this.commons*5)*0.667;
+      const uncommons = (this.uncommons*5)*0.8;
+      const rares = (this.rares*15)*0.958;
+      const mythics = (this.mythics*30)*0.958;
+      console.dir({commons, uncommons, rares, mythics});
 
       //todo: make gem bundles into {gems, price, count} to convert this into a loop
       this.gems = Math.max(commons, uncommons, rares, mythics) * 200;
@@ -96,6 +100,7 @@ html {
 }
 .container {
   background-color: #E6E7ED;
+  color:rgb(34, 34, 34);
   margin-top: 3em;
   margin-bottom: 3em;
 }
