@@ -1,7 +1,6 @@
-# Vue Template
+# A thing to calculate pricing
 
-A place I'm keeping all my personal vue styling and components for when I make a new website.
-feel free to send suggestions and improvements!
+Uses maths to determine how many packs you need to crack to get the wildcards you need then converts it into gems and "attempts" (poorly) to determine the cheapest way to get those gems.
 
 ## Project setup
 ```
